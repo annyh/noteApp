@@ -20,40 +20,16 @@ const Item = styled.div`
   }
 `;
 
-const Colored = styled.button`
-  width: 25px;
-  height: 25px;
-  background: ${ (p) => p.backgroundColor };
-`;
-
 const Header = styled.div`
   display: flex;
   justify-content: space-between;
 `;
 
 module.exports = class Note extends React.Component {
-  constructor(props) {
-    super(props);
-    this.setColor = this.setColor.bind(this);
-    this.state = {
-      color: 'red',
-      showModal: false,
-      text: '', // textContent of note
-    };
-  }
-
-  setColor(event) {
-    const color = event.target.name;
-    this.setState({
-      color,
-    });
-  }
-
   render() {
     const { title, text } = this.props;
-    const colors = ['red', 'yellow', 'green', 'blue'];
 
-    return <Item backgroundColor={ this.state.color }>
+    return <Item backgroundColor={ this.props.color }>
       <Header>
         <div></div>
         <div>
@@ -61,16 +37,7 @@ module.exports = class Note extends React.Component {
           <button className='deleteNoteButton'>Delete</button>
         </div>
       </Header>
-      <div>
-      { colors.map((color) => <Colored
-        onClick={ this.setColor }
-        className='colorPickerButton'
-        key={ color }
-        name={ color }
-        backgroundColor={ color } />) }
-      </div>
-      <h2>{ title }</h2>
-      <p>{ text }</p>
+      { this.props.children }
     </Item>
   }
 }

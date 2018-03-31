@@ -1,6 +1,7 @@
 import React from 'react';
 import Note from './Note';
 import Modal from './Modal';
+import ColorPicker from './ColorPicker';
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
@@ -16,11 +17,24 @@ const Header = styled.div`
   justify-content: space-between;
 `;
 
+
 module.exports = class NoteContainer extends React.Component {
    constructor(props) {
     super(props);
     this.toggleModal = this.toggleModal.bind(this);
+    this.setColor = this.setColor.bind(this);
     this.state = { openModal: false };
+  }
+
+
+  setColor(event) {
+    const color = event.target.name;
+    console.log('************', color)
+
+    // need know which note to map to
+    // this.setState({
+    //   color,
+    // });
   }
 
   toggleModal = () => {
@@ -40,8 +54,9 @@ module.exports = class NoteContainer extends React.Component {
     const noteElems = [];
 
     for (let _key in notes) {
-      noteElems.push(<Note
-        title={ _key } key={ _key } text={ notes[_key] } />)
+      noteElems.push(<Note key={ _key }>
+        <p>{ notes[_key] }</p>
+        </Note>)
     }
 
     return <div>
@@ -53,9 +68,11 @@ module.exports = class NoteContainer extends React.Component {
           primaryButtonText='Add'
           show={ this.state.openModal }
           onClose={ this.toggleModal }>
-          <p><input placeholder='Untitled' /></p>
-          <p><input placeholder='Type here' /></p>
-          <p>Here's some content for the modal</p>
+          <Note>
+            <ColorPicker setColor={ this.setColor } />
+            <p><input placeholder='Untitled' /></p>
+            <p><input placeholder='Type here' /></p>
+          </Note>
         </Modal> }
       <Wrapper>
         { noteElems }
