@@ -26,7 +26,26 @@ const Item = styled.div`
   }
 `;
 
+const colors = {
+  red: 'red',
+  yellow: 'yellow',
+  green: 'green',
+  blue: 'blue',
+};
+
 module.exports = class Note extends React.Component {
+
+  constructor(props) {
+    super(props);
+
+    // default color
+    this.state = {
+      color: colors.red,
+      showModal: false,
+      text: '', // textContent of note
+    };
+  }
+
   render() {
     return <Wrapper>
       <Item>
