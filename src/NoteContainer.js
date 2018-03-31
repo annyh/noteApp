@@ -1,5 +1,6 @@
 import React from 'react';
 import Note from './Note';
+import Modal from './Modal';
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
@@ -16,6 +17,18 @@ const Header = styled.div`
 `;
 
 module.exports = class NoteContainer extends React.Component {
+   constructor(props) {
+    super(props);
+    this.toggleModal = this.toggleModal.bind(this);
+    this.state = { openModal: false };
+  }
+
+  toggleModal = () => {
+    this.setState({
+      openModal: !this.state.openModal
+    });
+  }
+
   render() {
 
     // TODO: Get from localStorage
@@ -34,9 +47,12 @@ module.exports = class NoteContainer extends React.Component {
     return <div>
       <Header>
         <div></div>
-        <div><button>Add Note</button></div>
+        <div><button onClick={ this.toggleModal }>Add Note</button></div>
       </Header>
-
+      { this.state.openModal && <Modal show={ this.state.openModal }
+          onClose={ this.toggleModal }>
+          `Here's some content for the modal`
+        </Modal> }
       <Wrapper>
         { noteElems }
       </Wrapper>
