@@ -18,21 +18,15 @@ const Item = styled.div`
   }
 `;
 
-const colors = {
-  red: 'red',
-  yellow: 'yellow',
-  green: 'green',
-  blue: 'blue',
-};
+const Colored = styled.span`
+  background: ${ (p) => p.backgroundColor };
+`;
 
 module.exports = class Note extends React.Component {
-
   constructor(props) {
     super(props);
-
-    // default color
     this.state = {
-      color: colors.red,
+      color: 'red',
       showModal: false,
       text: '', // textContent of note
     };
@@ -40,10 +34,15 @@ module.exports = class Note extends React.Component {
 
   render() {
     const { title, text } = this.props;
+    const colors = ['red', 'yellow', 'green', 'blue'];
 
     return <Item>
-        <h2>{ title }</h2>
-        <p>{ text }</p>
-      </Item>
+      <div>
+      { colors.map((color) => <Colored
+        key={ color } backgroundColor={ color }>{ color }</Colored>) }
+      </div>
+      <h2>{ title }</h2>
+      <p>{ text }</p>
+    </Item>
   }
 }
