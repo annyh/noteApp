@@ -1,21 +1,23 @@
-# minimal-react-webpack-babel-setup
+# notes app
 
-[![Build Status](https://travis-ci.org/rwieruch/minimal-react-webpack-babel-setup.svg?branch=master)](https://travis-ci.org/rwieruch/minimal-react-webpack-babel-setup)
+### storage
 
-Read more about it: [The Minimal React Webpack Babel Setup](https://www.robinwieruch.de/minimal-react-webpack-babel-setup/)
+All notes are stored locally in browser using localStorage.
 
-## Features
+The text of each note is stored. On render, they are parsed from storage.
 
-* React 16
-* Webpack 4
-* Babel
-* Staging ES Next Features
-* Hot Module Replacement
+// convert text inside a DIV elemnt into a multi line string
+var lines = document.getElementsByClassName('post-layout--right')[0].textContent
 
-## Installation
+var notes = {};
 
-* `git clone git@github.com:rwieruch/minimal-react-webpack-babel-setup.git`
-* cd minimal-react-webpack-babel-setup
-* npm install
-* npm start
-* visit `http://localhost:8080/`
+notes[title] = lines
+
+localStorage.setItem('notes', JSON.stringify(notes));
+
+# Note retrieval
+
+var multiLineStr = JSON.parse(localStorage.getItem('notes'));
+
+// parse multiple line string into array
+var arr = multiLineStr.match(/[^\r\n]+/g);

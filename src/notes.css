@@ -1,0 +1,23 @@
+/* notes.css */
+.container {
+  display: flex;
+}
+
+.item {
+  background-color: black;
+  box-sizing: border-box;
+  padding: 20px;
+  flex: 2;
+  color: #fff;
+  border: 1px solid white;
+}
+
+
+@media screen and (max-width:1000px) {
+  .container { flex-wrap: wrap;  }
+  .item { flex-basis: 50%; }
+}
+
+@media screen and (max-width:560px) {
+  .item { flex-basis: 100%; }
+}
