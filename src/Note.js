@@ -26,6 +26,11 @@ const Colored = styled.button`
   background: ${ (p) => p.backgroundColor };
 `;
 
+const Header = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
 module.exports = class Note extends React.Component {
   constructor(props) {
     super(props);
@@ -49,6 +54,13 @@ module.exports = class Note extends React.Component {
     const colors = ['red', 'yellow', 'green', 'blue'];
 
     return <Item backgroundColor={ this.state.color }>
+      <Header>
+        <div></div>
+        <div>
+          <button>Edit</button>
+          <button>Delete</button>
+        </div>
+      </Header>
       <div>
       { colors.map((color) => <Colored
         onClick={ this.setColor }
