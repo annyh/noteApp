@@ -16,8 +16,8 @@ import Modal from '../src/Modal';
  buttons: ['Cancel', 'Save']
 
  On new:
- Header: placeholder: Untitled
- text: Just start typing here
+ Header: input with placeholder: Untitled
+ text: input with placeholder Start typing here
  buttons: ['Cancel', 'Add']
  */
 
@@ -37,9 +37,18 @@ describe('<Modal>', () => {
     expect(wrapper.find('.cancelButton')).to.have.length(1);
   });
 
-  // on delete, delete button shows up
   it('on delete, delete Button shows', () => {
     const wrapper = shallow(<Modal show={ true } primaryButtonText='Delete' />);
     expect(wrapper.find('.delete')).to.have.length(1);
+  });
+
+  it('on delete, show the expected text', () => {
+    const wrapper = shallow(<Modal show={ true }
+      primaryButtonText='Delete'>
+        <h2>Delete Note</h2>
+        <p>Are you sure you want to delete this note?</p>
+      </Modal>);
+    expect(wrapper.find('h2')).to.have.length(1);
+    expect(wrapper.find('p')).to.have.length(1);
   });
 });

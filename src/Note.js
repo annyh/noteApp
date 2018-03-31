@@ -57,8 +57,8 @@ module.exports = class Note extends React.Component {
       <Header>
         <div></div>
         <div>
-          <button>Edit</button>
-          <button>Delete</button>
+          <button className='editNoteButton'>Edit</button>
+          <button className='deleteNoteButton'>Delete</button>
         </div>
       </Header>
       <div>
