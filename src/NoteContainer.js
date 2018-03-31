@@ -10,6 +10,11 @@ const Wrapper = styled.div`
   }
 `;
 
+const Header = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
 module.exports = class NoteContainer extends React.Component {
   render() {
 
@@ -26,8 +31,15 @@ module.exports = class NoteContainer extends React.Component {
         title={ _key } key={ _key } text={ notes[_key] } />)
     }
 
-    return <Wrapper>
-      { noteElems }
-    </Wrapper>
+    return <div>
+      <Header>
+        <div></div>
+        <div><button>Add Note</button></div>
+      </Header>
+
+      <Wrapper>
+        { noteElems }
+      </Wrapper>
+    </div>
   }
 }
