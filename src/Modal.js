@@ -31,19 +31,28 @@ class Modal extends React.Component {
 
     // TODO: change to get from props
     const buttonText = 'Save';
+    const { primaryButtonText,
+      show,
+      children,
+      onClose } = this.props;
+    let primaryButton;
+    if (primaryButtonText) {
+      primaryButton = <div><button
+        className={ primaryButtonText.toLowerCase() }>{ primaryButton }</button></div>;
+    }
 
     // Render nothing if the "show" prop is false
-    if(!this.props.show) {
+    if(!show) {
       return null;
     }
 
     return (
       <Background className='grayBackground'>
         <ModalWindow>
-          {this.props.children}
+          {children}
       <ButtonRow>
-        <div><button className='cancelButton' onClick={ this.props.onClose }>Cancel</button></div>
-        <div><button>{ buttonText }</button></div>
+        <div><button className='cancelButton' onClick={ onClose }>Cancel</button></div>
+        { primaryButton }
       </ButtonRow>
         </ModalWindow>
       </Background>

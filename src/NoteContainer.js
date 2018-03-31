@@ -51,7 +51,7 @@ module.exports = class NoteContainer extends React.Component {
       </Header>
       { this.state.openModal && <Modal show={ this.state.openModal }
           onClose={ this.toggleModal }>
-          `Here's some content for the modal`
+          <p>Here's some content for the modal</p>
         </Modal> }
       <Wrapper>
         { noteElems }

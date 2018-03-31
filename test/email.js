@@ -5,7 +5,7 @@ import { expect } from 'chai';
 import Modal from '../src/Modal';
 
 /*
- On cancel:
+ On delete:
  Header: 'Delete Note'
  text: 'Are you sure you want to delete this note?'
  buttons: ['Cancel', 'Delete']
@@ -22,8 +22,6 @@ import Modal from '../src/Modal';
  */
 
 describe('<Modal>', () => {
-  // on render, expect a cancel button
-  // on render, expect a white background div
   it('Wrapper is NOT rendered when show is false', () => {
     const wrapper = shallow(<Modal />);
     expect(wrapper.find('.grayBackground')).to.have.length(0);
@@ -37,5 +35,11 @@ describe('<Modal>', () => {
   it('should have a Cancel button', () => {
     const wrapper = shallow(<Modal show={ true }/>);
     expect(wrapper.find('.cancelButton')).to.have.length(1);
+  });
+
+  // on delete, delete button shows up
+  it('on delete, delete Button shows', () => {
+    const wrapper = shallow(<Modal show={ true } primaryButtonText='Delete' />);
+    expect(wrapper.find('.delete')).to.have.length(1);
   });
 });
