@@ -26,23 +26,6 @@ const ButtonRow = styled.div`
   justify-content: space-between;
 `;
 
-/*
- On cancel:
- Header: 'Delete Note'
- text: 'Are you sure you want to delete this note?'
- buttons: ['Cancel', 'Delete']
-
- On edit:
- Header: the note's subject
- text: the note's text
- buttons: ['Cancel', 'Save']
-
- On new:
- Header: placeholder: Untitled
- text: Just start typing here
- buttons: ['Cancel', 'Add']
- */
-
 class Modal extends React.Component {
   render() {
 
@@ -55,12 +38,11 @@ class Modal extends React.Component {
     }
 
     return (
-      <Background>
+      <Background className='grayBackground'>
         <ModalWindow>
           {this.props.children}
-
       <ButtonRow>
-        <div><button onClick={ this.props.onClose }>Cancel</button></div>
+        <div><button className='cancelButton' onClick={ this.props.onClose }>Cancel</button></div>
         <div><button>{ buttonText }</button></div>
       </ButtonRow>
         </ModalWindow>
