@@ -23,18 +23,41 @@ module.exports = class NoteContainer extends React.Component {
     super(props);
     this.toggleModal = this.toggleModal.bind(this);
     this.setColor = this.setColor.bind(this);
-    this.state = { openModal: false };
+    this.state = { openModal: false,
+      notes: [{
+        id: 1,
+        title: 'All notes',
+        text: 'All notes are stored locally in browser using localStorage.',
+        color: 'red',
+      }, {
+        id: 2,
+        title: 'Hey hey',
+        text: 'All notes are stored locally.',
+        color: 'yellow',
+      }, {
+        id: 3,
+        title: 'All hey',
+        text: 'Using localStorage.',
+        color: 'green',
+      }, {
+        id: 4,
+        title: 'Hey hey',
+        text: 'Hey hey Hey hey Hey hey Hey hey Hey hey Hey hey Hey hey',
+        color: 'blue',
+      }],
+    };
   }
 
+  componentDidMount() {
+    // TODO: Get from localStorage
+
+  }
 
   setColor(event) {
     const color = event.target.name;
     console.log('************', color)
 
     // need know which note to map to
-    // this.setState({
-    //   color,
-    // });
   }
 
   toggleModal = () => {
@@ -44,20 +67,12 @@ module.exports = class NoteContainer extends React.Component {
   }
 
   render() {
-
-    // TODO: Get from localStorage
-    const notes = {};
-    notes['first note'] = 'Hey hey';
-    notes['second note'] = 'All notes are stored locally in browser using localStorage.';
-    notes['third note'] = 'Hey hey';
-    notes['fourth note'] = 'Hey hey Hey hey Hey hey Hey hey Hey hey Hey hey Hey hey';
-    const noteElems = [];
-
-    for (let _key in notes) {
-      noteElems.push(<Note key={ _key }>
-        <p>{ notes[_key] }</p>
-        </Note>)
-    }
+    const { notes } = this.state;
+    const noteElems = notes.map((note) => <Note
+      key={ note.id } color={ note.color }>
+      <h2>{ note.title }</h2>
+      <p>{ note.text }</p>
+    </Note>);
 
     return <div>
       <Header>
