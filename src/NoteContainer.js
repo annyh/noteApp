@@ -1,10 +1,33 @@
 import React from 'react';
 import Note from './Note';
+import styled from 'styled-components';
+
+const Wrapper = styled.div`
+  display: flex;
+
+  @media screen and (max-width:1000px) {
+    flex-wrap: wrap;
+  }
+`;
 
 module.exports = class NoteContainer extends React.Component {
   render() {
-    return <div className="container">
-      <Note />
-    </div>
+
+    // TODO: Get from localStorage
+    const notes = {};
+    notes['first note'] = 'Hey hey';
+    notes['second note'] = 'All notes are stored locally in browser using localStorage.';
+    notes['third note'] = 'Hey hey';
+    notes['fourth note'] = 'Hey hey Hey hey Hey hey Hey hey Hey hey Hey hey Hey hey';
+    const noteElems = [];
+
+    for (let _key in notes) {
+      noteElems.push(<Note
+        title={ _key } key={ _key } text={ notes[_key] } />)
+    }
+
+    return <Wrapper>
+      { noteElems }
+    </Wrapper>
   }
 }
