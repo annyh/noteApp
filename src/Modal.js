@@ -38,7 +38,7 @@ class Modal extends React.Component {
     let primaryButton;
     if (primaryButtonText) {
       primaryButton = <div><button
-        className={ primaryButtonText.toLowerCase() }>{ primaryButton }</button></div>;
+        className={ primaryButtonText.toLowerCase() }>{ primaryButtonText }</button></div>;
     }
 
     // Render nothing if the "show" prop is false

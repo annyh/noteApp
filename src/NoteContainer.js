@@ -49,8 +49,12 @@ module.exports = class NoteContainer extends React.Component {
         <div></div>
         <div><button onClick={ this.toggleModal }>Add Note</button></div>
       </Header>
-      { this.state.openModal && <Modal show={ this.state.openModal }
+      { this.state.openModal && <Modal
+          primaryButtonText='Add'
+          show={ this.state.openModal }
           onClose={ this.toggleModal }>
+          <p><input placeholder='Untitled' /></p>
+          <p><input placeholder='Type here' /></p>
           <p>Here's some content for the modal</p>
         </Modal> }
       <Wrapper>

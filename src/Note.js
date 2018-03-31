@@ -64,6 +64,7 @@ module.exports = class Note extends React.Component {
       <div>
       { colors.map((color) => <Colored
         onClick={ this.setColor }
+        className='colorPickerButton'
         key={ color }
         name={ color }
         backgroundColor={ color } />) }
