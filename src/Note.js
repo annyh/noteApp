@@ -27,16 +27,17 @@ const Header = styled.div`
 
 module.exports = class Note extends React.Component {
   render() {
-    const { title, text } = this.props;
+    const { title, text, showEditDeleteButton } = this.props;
 
     return <Item backgroundColor={ this.props.color }>
-      <Header>
-        <div></div>
-        <div>
-          <button className='editNoteButton'>Edit</button>
-          <button className='deleteNoteButton'>Delete</button>
-        </div>
-      </Header>
+        { showEditDeleteButton && <Header>
+          <div></div>
+          <div>
+            <button className='editNoteButton'>Edit</button>
+            <button className='deleteNoteButton'>Delete</button>
+          </div>
+        </Header>
+      }
       { this.props.children }
     </Item>
   }

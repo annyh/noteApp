@@ -55,7 +55,7 @@ module.exports = class NoteContainer extends React.Component {
 
   setColor(event) {
     const color = event.target.name;
-    console.log('************', color)
+    console.log('************', color, event.target)
 
     // need know which note to map to
   }
@@ -69,6 +69,7 @@ module.exports = class NoteContainer extends React.Component {
   render() {
     const { notes } = this.state;
     const noteElems = notes.map((note) => <Note
+      showEditDeleteButton= { true }
       key={ note.id } color={ note.color }>
       <h2>{ note.title }</h2>
       <p>{ note.text }</p>
@@ -80,6 +81,7 @@ module.exports = class NoteContainer extends React.Component {
         <div><button onClick={ this.toggleModal }>Add Note</button></div>
       </Header>
       { this.state.openModal && <Modal
+          showEditDeleteButton={ false }
           primaryButtonText='Add'
           show={ this.state.openModal }
           onClose={ this.toggleModal }>
