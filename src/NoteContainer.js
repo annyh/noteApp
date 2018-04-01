@@ -71,13 +71,31 @@ module.exports = class NoteContainer extends React.Component {
 
   }
 
-  updateNote(event) {
-    const noteId = event.target.name;
-    this.state.notes.findIndex((note) => note.id === parseInt(noteId))
+  // ie. 'name', 'color', e
+  updateNote(targetAttribute, keyName, event) {
+    const noteId = this.state.currentNode.id;
+    const _index = this.state.notes.findIndex((note) => note.id === parseInt(noteId))
+    const oldState = JSON.parse(JSON.stringify(this.state.notes));
+
+    if (!keyName && !event) {
+      // update notes
+      oldState[_index] = this.state.currentNode;
+      this.setState({
+        notes: oldState,
+        openModal: false,
+      });
+    } else {
+      const currentNodeCopy = JSON.parse(JSON.stringify(this.state.currentNode));
+      currentNodeCopy[keyName] = event.target[targetAttribute];
+
+      this.setState({
+        currentNode: currentNodeCopy,
+      });
+    }
   }
 
   deleteNote(event) {
-    const noteId = event.target.name;
+    const noteId = this.state.currentNode.id;
     const _index = this.state.notes.findIndex((note) => note.id === parseInt(noteId));
     const oldState = JSON.parse(JSON.stringify(this.state.notes));
     oldState.splice(_index, 1);
@@ -105,17 +123,25 @@ module.exports = class NoteContainer extends React.Component {
     });
   }
 
-  toggleModal(stateAttribute) {
+  toggleModal(stateAttribute, event) {
     const obj = { openModal: !this.state.openModal };
-    obj[stateAttribute] = true;
+    if (stateAttribute) {
+      if (stateAttribute != 'isCreating' && event && event.target.name) {
+        const noteId = event.target.name;
+        const _index = this.state.notes.findIndex((note) => note.id === parseInt(noteId));
+        obj.currentNode = this.state.notes[_index]
+      }
+      obj[stateAttribute] = true;
+    }
     this.setState(obj);
   }
 
   render() {
-    const { notes, isCreating, isEditing } = this.state;
+    const { notes, isCreating, isEditing, currentNode } = this.state;
+    console.log(isCreating, isEditing)
     const noteElems = notes.map((note) => <Note
       id={ note.id }
-      onClickEditButton={ this.updateNote }
+      onClickEditButton={ (e) => this.toggleModal('isEditing', e) }
       onClickDeleteButton={ this.deleteNote }
       key={ note.id } color={ note.color }>
       <h2>{ note.title }</h2>
@@ -130,12 +156,23 @@ module.exports = class NoteContainer extends React.Component {
       { this.state.openModal && isCreating && <Modal
           onConfirm={ this.addNote }
           primaryButtonText='Add'
-          show={ this.state.openModal }
+          show={ true }
           onClose={ this.toggleModal }>
           <Note>
             <ColorPicker setColor={ (e) => this.updateNewNote('name', 'color', e) } />
             <p><input onChange={ (e) => this.updateNewNote('value', 'title', e) } placeholder='Untitled' /></p>
             <p><input onChange={ (e) => this.updateNewNote('value', 'text', e) } placeholder='Type here' /></p>
+          </Note>
+        </Modal> }
+      { this.state.openModal && isEditing && <Modal
+          onConfirm={ this.updateNote }
+          primaryButtonText='Save'
+          show={ true }
+          onClose={ this.toggleModal }>
+          <Note color={ currentNode.color }>
+            <ColorPicker setColor={ (e) => this.updateNote('name', 'color', e) } />
+            <p><input onChange={ (e) => this.updateNote('value', 'title', e) } value={ currentNode.title }/></p>
+            <p><input onChange={ (e) => this.updateNote('value', 'text', e) } value={ currentNode.text }/></p>
           </Note>
         </Modal> }
       <Wrapper>
