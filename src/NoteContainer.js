@@ -26,7 +26,7 @@ function generateID() {
 };
 
 const defaultNewNote = { color: 'red' };
-module.exports = class NoteContainer extends React.Component {
+class NoteContainer extends React.Component {
    constructor(props) {
     super(props);
     this.toggleModal = this.toggleModal.bind(this);
@@ -47,18 +47,24 @@ module.exports = class NoteContainer extends React.Component {
   }
 
   componentDidMount() {
-    const _notes = localStorage.getItem('notes');
-    if (_notes) {
-      this.setState({ notes: JSON.parse(_notes) });
+    if (localStorage) {
+      const _notes = localStorage.getItem('notes');
+      if (_notes) {
+        this.setState({ notes: JSON.parse(_notes) });
+      }
     }
   }
 
   componentDidUpdate() {
-    localStorage.setItem('notes', JSON.stringify(this.state.notes));
+    if (localStorage) {
+      localStorage.setItem('notes', JSON.stringify(this.state.notes));
+    }
   }
 
   componentWillUnmount() {
-    localStorage.setItem('notes', JSON.stringify(this.state.notes));
+    if (localStorage) {
+      localStorage.setItem('notes', JSON.stringify(this.state.notes));
+    }
   }
 
   // ie. 'name', 'color', e
@@ -187,3 +193,5 @@ module.exports = class NoteContainer extends React.Component {
     </div>
   }
 }
+
+module.exports = { NoteContainer, generateID };

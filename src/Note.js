@@ -2,12 +2,13 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Item = styled.div`
+
   box-sizing: border-box;
   padding: 20px;
   flex: 2;
   color: #000;
   border: 1px solid black;
-
+  white-space: pre-wrap;
   border-top: ${ (p) => p.backgroundColor ? '10px ' + p.backgroundColor + ' solid' : '10px red solid' };
   border-radius: 10px;
   flex-basis: 25%;
