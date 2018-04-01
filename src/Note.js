@@ -2,25 +2,26 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Item = styled.div`
+  height: 15em;
+  float: left;
+  width: 21%;
+  padding: 1%;
+  margin: 1%;
 
   box-sizing: border-box;
-  padding: 20px;
-  flex: 2;
   color: #000;
   border: 1px solid black;
   white-space: pre-wrap;
   border-top: ${ (p) => p.backgroundColor ? '10px ' + p.backgroundColor + ' solid' : '10px red solid' };
   border-radius: 10px;
-  flex-basis: 25%;
 
+@media screen and (max-width:980px) {
+  width: 46%;
+}
 
-  @media screen and (max-width:880px) {
-    flex-basis: 50%;
-  }
-
-  @media screen and (max-width:480px) {
-    flex-basis: 100%;
-  }
+@media screen and (max-width:580px) {
+  width: 96%;
+}
 `;
 
 const Header = styled.div`
