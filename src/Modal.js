@@ -39,7 +39,7 @@ class Modal extends React.Component {
     let primaryButton;
     if (primaryButtonText) {
       primaryButton = <div><button
-        onClick={ console.log(this.state) }
+        onClick={ onConfirm }
         className={ primaryButtonText.toLowerCase() }>{ primaryButtonText }</button></div>;
     }
 

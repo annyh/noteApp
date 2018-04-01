@@ -26,18 +26,17 @@ function generateID() {
   return '_' + Math.random().toString(36).substr(2, 9);
 };
 
+const defaultNewNote = { color: 'red' };
 module.exports = class NoteContainer extends React.Component {
    constructor(props) {
     super(props);
     this.toggleModal = this.toggleModal.bind(this);
-    this.setColor = this.setColor.bind(this);
+    this.updateNewNote = this.updateNewNote.bind(this);
     this.addNote = this.addNote.bind(this);
     this.state = {
       openModal: false,
       newNote: {
         color: 'red',
-        text: '',
-        title: '',
       },
       notes: [{
         id: 1,
@@ -68,39 +67,25 @@ module.exports = class NoteContainer extends React.Component {
 
   }
 
-  addNote(obj) {
+  addNote() {
     const oldState = JSON.parse(JSON.stringify(this.state.notes));
-    oldState.push({ ...obj, id: generateID(), color: obj.color || 'red' });
+    oldState.push({ ...this.state.newNote, id: generateID() });
     this.setState({
+      newNote: defaultNewNote,
+      openModal: false,
       notes: oldState,
     });
   }
 
-  setColor(event) {
-    const color = event.target.name;
-    console.log('************', color, event.target)
-
-    // need know which note to map to
-  }
-
-  updateTitle(event) {
+  updateNewNote(targetAttribute, keyName, event) {
     const _copy = JSON.parse(JSON.stringify(this.state.newNote))
-    _copy.title = event.target.textContent;
+    _copy[keyName] = event.target[targetAttribute];
     this.setState({
       newNote: _copy,
     });
   }
 
-
-  updateText(event) {
-    const _copy = JSON.parse(JSON.stringify(this.state.newNote))
-    _copy.text = event.target.textContent;
-    this.setState({
-      newNote: _copy,
-    });
-  }
-
-  toggleModal = () => {
+  toggleModal() {
     this.setState({
       openModal: !this.state.openModal
     });
@@ -127,9 +112,9 @@ module.exports = class NoteContainer extends React.Component {
           show={ this.state.openModal }
           onClose={ this.toggleModal }>
           <Note>
-            <ColorPicker setColor={ this.setColor } />
-            <p><input onChange={ updateTitle } placeholder='Untitled' /></p>
-            <p><input onChange={ updateText } placeholder='Type here' /></p>
+            <ColorPicker setColor={ (e) => this.updateNewNote('name', 'color', e) } />
+            <p><input onChange={ (e) => this.updateNewNote('value', 'title', e) } placeholder='Untitled' /></p>
+            <p><input onChange={ (e) => this.updateNewNote('value', 'text', e) } placeholder='Type here' /></p>
           </Note>
         </Modal> }
       <Wrapper>

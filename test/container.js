@@ -15,9 +15,9 @@ describe('<NoteContainer>', () => {
     });
   });
 
-  it('updateTitle updates new note in the state', () => {
+  it('updateNewNote updates new note in the state', () => {
     const wrapper = mount(<NoteContainer />);
-    wrapper.instance().updateTitle({ target: { textContent: STRING } });
+    wrapper.instance().updateNewNote('value', 'title', { target: { value: STRING } });
     wrapper.instance().forceUpdate(() => {
       expect(wrapper.state().newNote.title).to.equal(STRING);
     });
