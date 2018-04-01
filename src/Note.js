@@ -27,10 +27,10 @@ const Header = styled.div`
 
 module.exports = class Note extends React.Component {
   render() {
-    const { title, text, showEditDeleteButton } = this.props;
+    const { title, text, onClickEditButton, onClickDeleteButton } = this.props;
 
     return <Item backgroundColor={ this.props.color }>
-        { showEditDeleteButton && <Header>
+        { onClickEditButton && onClickDeleteButton && <Header>
           <div></div>
           <div>
             <button className='editNoteButton'>Edit</button>

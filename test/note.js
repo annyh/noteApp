@@ -5,8 +5,12 @@ import { expect } from 'chai';
 import Note from '../src/Note';
 
 describe('<Note>', () => {
+  const DUMMY_FUNC = () => console.log();
+
   it('with prop, edit and delete buttons are rendered', () => {
-    const wrapper = shallow(<Note showEditDeleteButton={ true }/>);
+    const wrapper = shallow(<Note
+      onClickEditButton= { DUMMY_FUNC }
+      onClickDeleteButton={ DUMMY_FUNC }/>);
     expect(wrapper.find('.deleteNoteButton')).to.have.length(1);
     expect(wrapper.find('.editNoteButton')).to.have.length(1);
   });
