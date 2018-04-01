@@ -31,3 +31,20 @@ input, textarea, button {
   background: darkgrey;
 }
 
+.editNoteButton, .deleteNoteButton {
+   width: 20px;
+  height: 20px;
+  border: 0;
+  outline: 0;
+}
+
+.editNoteButton {
+  background: url(http://simpleicon.com/wp-content/uploads/pencil.png);
+  background-size: 20px 20px;
+  margin-right: 8px;
+}
+
+.deleteNoteButton {
+  background: url(https://cdn2.iconfinder.com/data/icons/picons-essentials/57/delete-128.png);
+  background-size: 20px 20px;
+}

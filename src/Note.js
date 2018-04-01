@@ -33,8 +33,8 @@ module.exports = class Note extends React.Component {
 
     return <Item className='note' backgroundColor={ this.props.color }>
         { onClickEditButton && onClickDeleteButton && <FloatRight>
-          <button name={ id } onClick={ onClickEditButton } className='editNoteButton'>Edit</button>
-          <button name={ id } onClick={ onClickDeleteButton } className='deleteNoteButton'>Delete</button>
+          <button name={ id } onClick={ onClickEditButton } className='editNoteButton'></button>
+          <button name={ id } onClick={ onClickDeleteButton } className='deleteNoteButton'></button>
         </FloatRight>
       }
       { this.props.children }
