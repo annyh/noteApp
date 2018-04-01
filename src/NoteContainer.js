@@ -3,7 +3,7 @@ import Note from './Note';
 import Modal from './Modal';
 import ColorPicker from './ColorPicker';
 import styled from 'styled-components';
-import './notes.css';
+require('./notes.css');
 
 const Wrapper = styled.div`
   font-size: 14px;
