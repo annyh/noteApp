@@ -10,7 +10,7 @@ const Colored = styled.button`
 module.exports = class ColorPicker extends React.Component {
   render() {
     const { setColor } = this.props;
-    const colors = ['red', 'green', 'yellow', 'blue'];
+    const colors = ['#f9acbb', '#a2eae0', '#FFFFE0', '#92d7ef'] // ['red', 'green', 'yellow', 'blue'];
 
     return <div>
       { colors.map((color) => <Colored

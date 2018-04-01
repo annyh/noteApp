@@ -6,17 +6,30 @@ import styled from 'styled-components';
 import './notes.css';
 
 const Wrapper = styled.div`
+  font-size: 14px;
   font-family: Helvetica, Arial, Sans-Serif;
 `;
 
 const Header = styled.div`
   display: flex;
   justify-content: space-between;
+  background: #003366;
 `;
 
 const Title = styled.h2`
   margin: 0;
   padding: 0;
+`;
+
+const AddNoteButton = styled.button`
+  background: #0f7e9b;
+  outline: 0;
+  border: 0;
+  border-radius: 3px;
+  padding: 5px;
+  margin: 12px;
+  color: #fff;
+  width: 130px;
 `;
 
 const StyledInput = styled.input`
@@ -27,6 +40,7 @@ const StyledTextArea = styled.textarea`
   border: 0px;
   margin: 0px;
   width: 100%;
+  height: 140px;
 `;
 
 /**
@@ -37,7 +51,7 @@ function generateID() {
   return parseInt(Math.random().toString().substr(2, 9));
 };
 
-const defaultNewNote = { color: 'red' };
+const defaultNewNote = { color: '#f9acbb' };
 class NoteContainer extends React.Component {
    constructor(props) {
     super(props);
@@ -52,7 +66,7 @@ class NoteContainer extends React.Component {
       isDeleting: false,
       openModal: false,
       newNote: {
-        color: 'red',
+        color: '#f9acbb',
       },
       notes: [],
     };
@@ -165,14 +179,14 @@ class NoteContainer extends React.Component {
     return <div>
       <Header>
         <div></div>
-        <div><button onClick={ (e) => this.toggleModal('isCreating') }>Add Note</button></div>
+        <div><AddNoteButton onClick={ (e) => this.toggleModal('isCreating') }>+ Add Note</AddNoteButton></div>
       </Header>
       { this.state.openModal && isCreating && <Modal
           onConfirm={ this.addNote }
           primaryButtonText='Add'
           show={ true }
           onClose={ this.toggleModal }>
-          <Note color={ newNote ? newNote.color : 'red' }>
+          <Note color={ newNote ? newNote.color : '#f9acbb' }>
             <ColorPicker setColor={ (e) => this.updateNewNote('name', 'color', e) } />
             <p><StyledInput onChange={ (e) => this.updateNewNote('value', 'title', e) } placeholder='Untitled' /></p>
             <p><StyledTextArea onChange={ (e) => this.updateNewNote('value', 'text', e) } placeholder='Type here' /></p>
@@ -180,7 +194,7 @@ class NoteContainer extends React.Component {
         </Modal> }
       { this.state.openModal && isEditing && <Modal
           onConfirm={ this.updateNote }
-          primaryButtonText='Save'
+          primaryButtonText='Update'
           show={ true }
           onClose={ this.toggleModal }>
           <Note color={ currentNode.color }>

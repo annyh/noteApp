@@ -7,12 +7,11 @@ const Item = styled.div`
   width: 21%;
   padding: 1%;
   margin: 1%;
-
+  background: #fff;
   box-sizing: border-box;
   color: #000;
-  border: 1px solid black;
   white-space: pre-wrap;
-  border-top: ${ (p) => p.backgroundColor ? '10px ' + p.backgroundColor + ' solid' : '10px red solid' };
+  border-top: ${ (p) => p.backgroundColor ? '10px ' + p.backgroundColor + ' solid' : '10px #f9acbb solid' };
   border-radius: 10px;
 
 @media screen and (max-width:980px) {

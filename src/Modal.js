@@ -14,7 +14,7 @@ const Background = styled.div`
 
 const ModalWindow = styled.div`
   background: #fff;
-  border-radius: 5px;
+  border-radius: 10px;
   max-width: 500px;
   min-height: 300px;
   margin: 0 auto;
@@ -40,7 +40,7 @@ class Modal extends React.Component {
     if (primaryButtonText) {
       primaryButton = <div><button
         onClick={ onConfirm }
-        className={ primaryButtonText.toLowerCase() }>{ primaryButtonText }</button></div>;
+        className={ 'primaryButton ' + primaryButtonText.toLowerCase() }>{ primaryButtonText }</button></div>;
     }
 
     // Render nothing if the "show" prop is false
