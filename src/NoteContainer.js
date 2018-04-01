@@ -19,11 +19,10 @@ const Header = styled.div`
 
 /**
  Math.random should be unique because of its seeding algorithm.
- Convert it to base 36 (numbers + letters), and grab the first 9 characters
- after the decimal.
+ Grab the first 9 characters after the decimal.
  */
 function generateID() {
-  return '_' + Math.random().toString(36).substr(2, 9);
+  return parseInt(Math.random().toString().substr(2, 9));
 };
 
 const defaultNewNote = { color: 'red' };
@@ -38,6 +37,7 @@ module.exports = class NoteContainer extends React.Component {
     this.state = {
       isCreating: false,
       isEditing: false,
+      isDeleting: false,
       openModal: false,
       newNote: {
         color: 'red',
@@ -73,19 +73,23 @@ module.exports = class NoteContainer extends React.Component {
 
   // ie. 'name', 'color', e
   updateNote(targetAttribute, keyName, event) {
-    const noteId = this.state.currentNode.id;
-    const _index = this.state.notes.findIndex((note) => note.id === parseInt(noteId))
-    const oldState = JSON.parse(JSON.stringify(this.state.notes));
+    const { currentNode, notes } = this.state;
+    const noteId = currentNode.id;
+    const _index = notes.findIndex((note) => note.id === parseInt(noteId))
+    const oldState = JSON.parse(JSON.stringify(notes));
 
     if (!keyName && !event) {
+
       // update notes
-      oldState[_index] = this.state.currentNode;
+      oldState[_index] = currentNode;
       this.setState({
         notes: oldState,
         openModal: false,
+        isEditing: false,
+        currentNode: {},
       });
     } else {
-      const currentNodeCopy = JSON.parse(JSON.stringify(this.state.currentNode));
+      const currentNodeCopy = JSON.parse(JSON.stringify(currentNode));
       currentNodeCopy[keyName] = event.target[targetAttribute];
 
       this.setState({
@@ -94,14 +98,16 @@ module.exports = class NoteContainer extends React.Component {
     }
   }
 
-  deleteNote(event) {
-    const noteId = this.state.currentNode.id;
-    const _index = this.state.notes.findIndex((note) => note.id === parseInt(noteId));
-    const oldState = JSON.parse(JSON.stringify(this.state.notes));
+  deleteNote() {
+    const { currentNode, notes } = this.state;
+    const _index = notes.findIndex((note) => note.id === parseInt(currentNode.id));
+    const oldState = JSON.parse(JSON.stringify(notes));
     oldState.splice(_index, 1);
     this.setState({
       openModal: false,
       notes: oldState,
+      isDeleting: false,
+      currentNode: {},
     });
   }
 
@@ -112,6 +118,7 @@ module.exports = class NoteContainer extends React.Component {
       newNote: defaultNewNote,
       openModal: false,
       notes: oldState,
+      isCreating: false,
     });
   }
 
@@ -129,6 +136,7 @@ module.exports = class NoteContainer extends React.Component {
       if (stateAttribute != 'isCreating' && event && event.target.name) {
         const noteId = event.target.name;
         const _index = this.state.notes.findIndex((note) => note.id === parseInt(noteId));
+        debugger;
         obj.currentNode = this.state.notes[_index]
       }
       obj[stateAttribute] = true;
@@ -137,12 +145,11 @@ module.exports = class NoteContainer extends React.Component {
   }
 
   render() {
-    const { notes, isCreating, isEditing, currentNode } = this.state;
-    console.log(isCreating, isEditing)
+    const { notes, isCreating, isEditing, isDeleting, currentNode, newNote } = this.state;
     const noteElems = notes.map((note) => <Note
       id={ note.id }
       onClickEditButton={ (e) => this.toggleModal('isEditing', e) }
-      onClickDeleteButton={ this.deleteNote }
+      onClickDeleteButton={ (e) => this.toggleModal('isDeleting', e) }
       key={ note.id } color={ note.color }>
       <h2>{ note.title }</h2>
       <p>{ note.text }</p>
@@ -158,7 +165,7 @@ module.exports = class NoteContainer extends React.Component {
           primaryButtonText='Add'
           show={ true }
           onClose={ this.toggleModal }>
-          <Note>
+          <Note color={ newNote ? newNote.color : 'red' }>
             <ColorPicker setColor={ (e) => this.updateNewNote('name', 'color', e) } />
             <p><input onChange={ (e) => this.updateNewNote('value', 'title', e) } placeholder='Untitled' /></p>
             <p><input onChange={ (e) => this.updateNewNote('value', 'text', e) } placeholder='Type here' /></p>
@@ -175,6 +182,15 @@ module.exports = class NoteContainer extends React.Component {
             <p><input onChange={ (e) => this.updateNote('value', 'text', e) } value={ currentNode.text }/></p>
           </Note>
         </Modal> }
+      { this.state.openModal && isDeleting && <Modal
+          onConfirm={ this.deleteNote }
+          primaryButtonText='Delete'
+          show={ true }
+          onClose={ this.toggleModal }>
+          <h2>Delete Note</h2>
+          <p>Are you sure you want to delete this note?</p>
+        </Modal>
+      }
       <Wrapper>
         { noteElems }
       </Wrapper>
