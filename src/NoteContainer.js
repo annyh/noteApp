@@ -142,7 +142,7 @@ module.exports = class NoteContainer extends React.Component {
       onClickDeleteButton={ (e) => this.toggleModal('isDeleting', e) }
       key={ note.id } color={ note.color }>
       <h2>{ note.title }</h2>
-      <p>{ note.text }</p>
+      <div>{ note.text }</div>
     </Note>);
 
     return <div>
@@ -158,7 +158,7 @@ module.exports = class NoteContainer extends React.Component {
           <Note color={ newNote ? newNote.color : 'red' }>
             <ColorPicker setColor={ (e) => this.updateNewNote('name', 'color', e) } />
             <p><input onChange={ (e) => this.updateNewNote('value', 'title', e) } placeholder='Untitled' /></p>
-            <p><input onChange={ (e) => this.updateNewNote('value', 'text', e) } placeholder='Type here' /></p>
+            <p><textarea onChange={ (e) => this.updateNewNote('value', 'text', e) } placeholder='Type here' /></p>
           </Note>
         </Modal> }
       { this.state.openModal && isEditing && <Modal
@@ -169,7 +169,7 @@ module.exports = class NoteContainer extends React.Component {
           <Note color={ currentNode.color }>
             <ColorPicker setColor={ (e) => this.updateNote('name', 'color', e) } />
             <p><input onChange={ (e) => this.updateNote('value', 'title', e) } value={ currentNode.title }/></p>
-            <p><input onChange={ (e) => this.updateNote('value', 'text', e) } value={ currentNode.text }/></p>
+            <p><textarea onChange={ (e) => this.updateNote('value', 'text', e) } value={ currentNode.text }/></p>
           </Note>
         </Modal> }
       { this.state.openModal && isDeleting && <Modal
