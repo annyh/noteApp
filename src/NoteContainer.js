@@ -5,11 +5,17 @@ import ColorPicker from './ColorPicker';
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
+  font-family: Helvetica, Arial, Sans-Serif;
 `;
 
 const Header = styled.div`
   display: flex;
   justify-content: space-between;
+`;
+
+const Title = styled.h2`
+  margin: 0;
+  padding: 0;
 `;
 
 /**
@@ -127,7 +133,6 @@ class NoteContainer extends React.Component {
       if (stateAttribute != 'isCreating' && event && event.target.name) {
         const noteId = event.target.name;
         const _index = this.state.notes.findIndex((note) => note.id === parseInt(noteId));
-        debugger;
         obj.currentNode = this.state.notes[_index]
       }
       obj[stateAttribute] = true;
@@ -142,7 +147,7 @@ class NoteContainer extends React.Component {
       onClickEditButton={ (e) => this.toggleModal('isEditing', e) }
       onClickDeleteButton={ (e) => this.toggleModal('isDeleting', e) }
       key={ note.id } color={ note.color }>
-      <h2>{ note.title }</h2>
+      <Title>{ note.title }</Title>
       <div>{ note.text }</div>
     </Note>);
 
@@ -178,7 +183,7 @@ class NoteContainer extends React.Component {
           primaryButtonText='Delete'
           show={ true }
           onClose={ this.toggleModal }>
-          <h2>Delete Note</h2>
+          <Title>Delete Note</Title>
           <p>Are you sure you want to delete this note?</p>
         </Modal>
       }

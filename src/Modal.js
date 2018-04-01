@@ -18,12 +18,12 @@ const ModalWindow = styled.div`
   max-width: 500px;
   min-height: 300px;
   margin: 0 auto;
-  padding: 30px;
 `;
 
 const ButtonRow = styled.div`
   display: flex;
   justify-content: space-between;
+  width: 100%;
 `;
 
 class Modal extends React.Component {

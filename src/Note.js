@@ -24,23 +24,19 @@ const Item = styled.div`
 }
 `;
 
-const Header = styled.div`
-  display: flex;
-  justify-content: space-between;
+const FloatRight = styled.div`
+  float: right;
 `;
 
 module.exports = class Note extends React.Component {
   render() {
     const { id, title, text, onClickEditButton, onClickDeleteButton } = this.props;
 
-    return <Item backgroundColor={ this.props.color }>
-        { onClickEditButton && onClickDeleteButton && <Header>
-          <div></div>
-          <div>
-            <button name={ id } onClick={ onClickEditButton } className='editNoteButton'>Edit</button>
-            <button name={ id } onClick={ onClickDeleteButton } className='deleteNoteButton'>Delete</button>
-          </div>
-        </Header>
+    return <Item className='note' backgroundColor={ this.props.color }>
+        { onClickEditButton && onClickDeleteButton && <FloatRight>
+          <button name={ id } onClick={ onClickEditButton } className='editNoteButton'>Edit</button>
+          <button name={ id } onClick={ onClickDeleteButton } className='deleteNoteButton'>Delete</button>
+        </FloatRight>
       }
       { this.props.children }
     </Item>
