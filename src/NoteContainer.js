@@ -71,12 +71,20 @@ module.exports = class NoteContainer extends React.Component {
 
   }
 
-  updateNote() {
-
+  updateNote(event) {
+    const noteId = event.target.name;
+    this.state.notes.findIndex((note) => note.id === parseInt(noteId))
   }
 
-  deleteNote() {
-
+  deleteNote(event) {
+    const noteId = event.target.name;
+    const _index = this.state.notes.findIndex((note) => note.id === parseInt(noteId));
+    const oldState = JSON.parse(JSON.stringify(this.state.notes));
+    oldState.splice(_index, 1);
+    this.setState({
+      openModal: false,
+      notes: oldState,
+    });
   }
 
   addNote() {
@@ -106,6 +114,7 @@ module.exports = class NoteContainer extends React.Component {
   render() {
     const { notes, isCreating, isEditing } = this.state;
     const noteElems = notes.map((note) => <Note
+      id={ note.id }
       onClickEditButton={ this.updateNote }
       onClickDeleteButton={ this.deleteNote }
       key={ note.id } color={ note.color }>
