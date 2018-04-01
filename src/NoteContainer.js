@@ -3,6 +3,7 @@ import Note from './Note';
 import Modal from './Modal';
 import ColorPicker from './ColorPicker';
 import styled from 'styled-components';
+import './notes.css';
 
 const Wrapper = styled.div`
   font-family: Helvetica, Arial, Sans-Serif;
@@ -16,6 +17,16 @@ const Header = styled.div`
 const Title = styled.h2`
   margin: 0;
   padding: 0;
+`;
+
+const StyledInput = styled.input`
+  border: 0;
+`;
+
+const StyledTextArea = styled.textarea`
+  border: 0px;
+  margin: 0px;
+  width: 100%;
 `;
 
 /**
@@ -163,8 +174,8 @@ class NoteContainer extends React.Component {
           onClose={ this.toggleModal }>
           <Note color={ newNote ? newNote.color : 'red' }>
             <ColorPicker setColor={ (e) => this.updateNewNote('name', 'color', e) } />
-            <p><input onChange={ (e) => this.updateNewNote('value', 'title', e) } placeholder='Untitled' /></p>
-            <p><textarea onChange={ (e) => this.updateNewNote('value', 'text', e) } placeholder='Type here' /></p>
+            <p><StyledInput onChange={ (e) => this.updateNewNote('value', 'title', e) } placeholder='Untitled' /></p>
+            <p><StyledTextArea onChange={ (e) => this.updateNewNote('value', 'text', e) } placeholder='Type here' /></p>
           </Note>
         </Modal> }
       { this.state.openModal && isEditing && <Modal
@@ -174,8 +185,8 @@ class NoteContainer extends React.Component {
           onClose={ this.toggleModal }>
           <Note color={ currentNode.color }>
             <ColorPicker setColor={ (e) => this.updateNote('name', 'color', e) } />
-            <p><input onChange={ (e) => this.updateNote('value', 'title', e) } value={ currentNode.title }/></p>
-            <p><textarea onChange={ (e) => this.updateNote('value', 'text', e) } value={ currentNode.text }/></p>
+            <p><StyledInput onChange={ (e) => this.updateNote('value', 'title', e) } value={ currentNode.title }/></p>
+            <p><StyledTextArea onChange={ (e) => this.updateNote('value', 'text', e) } value={ currentNode.text }/></p>
           </Note>
         </Modal> }
       { this.state.openModal && isDeleting && <Modal

@@ -1,4 +1,5 @@
 const webpack = require('webpack');
+const path = require('path');
 
 module.exports = {
   entry: [
@@ -7,6 +8,17 @@ module.exports = {
   ],
   module: {
     rules: [
+      // Load Css files
+      {
+        test: /\.css$/,
+        use: [
+          'style-loader',
+          'css-loader'
+        ],
+        include: [
+          path.resolve(__dirname, 'src')
+        ]
+      },
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
