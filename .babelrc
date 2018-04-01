@@ -3,5 +3,12 @@
     "env",
     "react",
     "stage-2"
-  ]
+  ],
+  "plugins": [
+        [
+            "css-modules-transform", {
+                "extractCss": "./dist/stylesheets/combined.css"
+            }
+        ]
+    ]
 }

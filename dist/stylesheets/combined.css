@@ -1,10 +1,12 @@
+/*  imported from notes.css  */
+
 body {
   margin: 0;
   padding: 0;
   background-color: '#e4e0dc';
 }
 
-.grayBackground .note {
+.notes__grayBackground___nMZAi .notes__note___1rNYK {
   width: 100%;
   margin: 0;
 }
@@ -13,7 +15,7 @@ input, textarea, button {
   font-size: 14px;
 }
 
-.primaryButton, .cancelButton {
+.notes__primaryButton___3SPwS, .notes__cancelButton___31BBs {
   outline: 0;
   border: 0;
   border-radius: 3px;
@@ -23,11 +25,11 @@ input, textarea, button {
   width: 80px;
 }
 
-.primaryButton {
+.notes__primaryButton___3SPwS {
   background-color: turquoise;
 }
 
-.cancelButton {
+.notes__cancelButton___31BBs {
   background: darkgrey;
 }
 
