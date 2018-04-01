@@ -17,13 +17,28 @@ const Header = styled.div`
   justify-content: space-between;
 `;
 
+/**
+ Math.random should be unique because of its seeding algorithm.
+ Convert it to base 36 (numbers + letters), and grab the first 9 characters
+ after the decimal.
+ */
+function generateID() {
+  return '_' + Math.random().toString(36).substr(2, 9);
+};
 
 module.exports = class NoteContainer extends React.Component {
    constructor(props) {
     super(props);
     this.toggleModal = this.toggleModal.bind(this);
     this.setColor = this.setColor.bind(this);
-    this.state = { openModal: false,
+    this.addNote = this.addNote.bind(this);
+    this.state = {
+      openModal: false,
+      newNote: {
+        color: 'red',
+        text: '',
+        title: '',
+      },
       notes: [{
         id: 1,
         title: 'All notes',
@@ -49,8 +64,16 @@ module.exports = class NoteContainer extends React.Component {
   }
 
   componentDidMount() {
-    // TODO: Get from localStorage
+    // TODO: Get notes from localStorage. Set it to state
 
+  }
+
+  addNote(obj) {
+    const oldState = JSON.parse(JSON.stringify(this.state.notes));
+    oldState.push({ ...obj, id: generateID(), color: obj.color || 'red' });
+    this.setState({
+      notes: oldState,
+    });
   }
 
   setColor(event) {
@@ -58,6 +81,23 @@ module.exports = class NoteContainer extends React.Component {
     console.log('************', color, event.target)
 
     // need know which note to map to
+  }
+
+  updateTitle(event) {
+    const _copy = JSON.parse(JSON.stringify(this.state.newNote))
+    _copy.title = event.target.textContent;
+    this.setState({
+      newNote: _copy,
+    });
+  }
+
+
+  updateText(event) {
+    const _copy = JSON.parse(JSON.stringify(this.state.newNote))
+    _copy.text = event.target.textContent;
+    this.setState({
+      newNote: _copy,
+    });
   }
 
   toggleModal = () => {
@@ -81,14 +121,15 @@ module.exports = class NoteContainer extends React.Component {
         <div><button onClick={ this.toggleModal }>Add Note</button></div>
       </Header>
       { this.state.openModal && <Modal
+          onConfirm={ this.addNote }
           showEditDeleteButton={ false }
           primaryButtonText='Add'
           show={ this.state.openModal }
           onClose={ this.toggleModal }>
           <Note>
             <ColorPicker setColor={ this.setColor } />
-            <p><input placeholder='Untitled' /></p>
-            <p><input placeholder='Type here' /></p>
+            <p><input onChange={ updateTitle } placeholder='Untitled' /></p>
+            <p><input onChange={ updateText } placeholder='Type here' /></p>
           </Note>
         </Modal> }
       <Wrapper>

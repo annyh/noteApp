@@ -34,10 +34,12 @@ class Modal extends React.Component {
     const { primaryButtonText,
       show,
       children,
+      onConfirm,
       onClose } = this.props;
     let primaryButton;
     if (primaryButtonText) {
       primaryButton = <div><button
+        onClick={ console.log(this.state) }
         className={ primaryButtonText.toLowerCase() }>{ primaryButtonText }</button></div>;
     }
 
@@ -61,6 +63,7 @@ class Modal extends React.Component {
 }
 
 Modal.propTypes = {
+  onConfirm: PropTypes.func,
   onClose: PropTypes.func,
   show: PropTypes.bool,
   children: PropTypes.node

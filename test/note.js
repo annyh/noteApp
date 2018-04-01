@@ -4,10 +4,6 @@ import { expect } from 'chai';
 
 import Note from '../src/Note';
 
-/*
-on render, has the delete and edit icon
- */
-
 describe('<Note>', () => {
   it('with prop, edit and delete buttons are rendered', () => {
     const wrapper = shallow(<Note showEditDeleteButton={ true }/>);
