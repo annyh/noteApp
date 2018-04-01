@@ -6,8 +6,6 @@ import styled from 'styled-components';
 require('./notes.css');
 
 const Wrapper = styled.div`
-  font-size: 14px;
-  font-family: Helvetica, Arial, Sans-Serif;
 `;
 
 const Header = styled.div`
@@ -18,7 +16,7 @@ const Header = styled.div`
 
 const Title = styled.h2`
   margin: 0;
-  padding: 0;
+  padding: 20px;
 `;
 
 const AddNoteButton = styled.button`
@@ -204,12 +202,13 @@ class NoteContainer extends React.Component {
           </Note>
         </Modal> }
       { this.state.openModal && isDeleting && <Modal
+          minHeight='200px'
           onConfirm={ this.deleteNote }
           primaryButtonText='Delete'
           show={ true }
           onClose={ this.toggleModal }>
           <Title>Delete Note</Title>
-          <p>Are you sure you want to delete this note?</p>
+          <p className='confirmDelete '>Are you sure you want to delete this note?</p>
         </Modal>
       }
       <Wrapper>

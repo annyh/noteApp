@@ -16,7 +16,7 @@ const ModalWindow = styled.div`
   background: #fff;
   border-radius: 10px;
   max-width: 500px;
-  min-height: 300px;
+  min-height: ${ (p) => p.minHeight || '300px' };
   margin: 0 auto;
 `;
 
@@ -33,6 +33,7 @@ class Modal extends React.Component {
     const buttonText = 'Save';
     const { primaryButtonText,
       show,
+      minHeight,
       children,
       onConfirm,
       onClose } = this.props;
@@ -50,7 +51,7 @@ class Modal extends React.Component {
 
     return (
       <Background className='grayBackground'>
-        <ModalWindow>
+        <ModalWindow minHeight={ minHeight }>
           {children}
       <ButtonRow>
         <div><button className='cancelButton' onClick={ onClose }>Cancel</button></div>

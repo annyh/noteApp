@@ -2,6 +2,8 @@ body {
   margin: 0;
   padding: 0;
   background-color: #e4e0dc;
+  font-size: 14px;
+  font-family: Helvetica, Arial, Sans-Serif;
 }
 
 .grayBackground .note {
@@ -11,6 +13,10 @@ body {
 
 input, textarea, button {
   font-size: 14px;
+}
+
+.grayBackground .confirmDelete {
+  padding: 0 20px 30px 20px;
 }
 
 .primaryButton, .cancelButton {
