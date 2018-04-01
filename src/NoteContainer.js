@@ -34,6 +34,7 @@ module.exports = class NoteContainer extends React.Component {
     this.updateNewNote = this.updateNewNote.bind(this);
     this.addNote = this.addNote.bind(this);
     this.state = {
+      isCreating: false,
       openModal: false,
       newNote: {
         color: 'red',
@@ -85,14 +86,14 @@ module.exports = class NoteContainer extends React.Component {
     });
   }
 
-  toggleModal() {
-    this.setState({
-      openModal: !this.state.openModal
-    });
+  toggleModal(stateAttribute) {
+    const obj = { openModal: !this.state.openModal };
+    obj[stateAttribute] = true;
+    this.setState(obj);
   }
 
   render() {
-    const { notes } = this.state;
+    const { notes, isCreating } = this.state;
     const noteElems = notes.map((note) => <Note
       showEditDeleteButton= { true }
       key={ note.id } color={ note.color }>
@@ -103,9 +104,9 @@ module.exports = class NoteContainer extends React.Component {
     return <div>
       <Header>
         <div></div>
-        <div><button onClick={ this.toggleModal }>Add Note</button></div>
+        <div><button onClick={ (e) => this.toggleModal('isCreating') }>Add Note</button></div>
       </Header>
-      { this.state.openModal && <Modal
+      { this.state.openModal && isCreating && <Modal
           onConfirm={ this.addNote }
           showEditDeleteButton={ false }
           primaryButtonText='Add'
