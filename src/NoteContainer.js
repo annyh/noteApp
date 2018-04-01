@@ -42,33 +42,23 @@ module.exports = class NoteContainer extends React.Component {
       newNote: {
         color: 'red',
       },
-      notes: [{
-        id: 1,
-        title: 'All notes',
-        text: 'All notes are stored locally in browser using localStorage.',
-        color: 'red',
-      }, {
-        id: 2,
-        title: 'Hey hey',
-        text: 'All notes are stored locally.',
-        color: 'yellow',
-      }, {
-        id: 3,
-        title: 'All hey',
-        text: 'Using localStorage.',
-        color: 'green',
-      }, {
-        id: 4,
-        title: 'Hey hey',
-        text: 'Hey hey Hey hey Hey hey Hey hey Hey hey Hey hey Hey hey',
-        color: 'blue',
-      }],
+      notes: [],
     };
   }
 
   componentDidMount() {
-    // TODO: Get notes from localStorage. Set it to state
+    const _notes = localStorage.getItem('notes');
+    if (_notes) {
+      this.setState({ notes: JSON.parse(_notes) });
+    }
+  }
 
+  componentDidUpdate() {
+    localStorage.setItem('notes', JSON.stringify(this.state.notes));
+  }
+
+  componentWillUnmount() {
+    localStorage.setItem('notes', JSON.stringify(this.state.notes));
   }
 
   // ie. 'name', 'color', e

@@ -1,23 +1,42 @@
-# notes app
-
-### storage
+# Notes app
 
 All notes are stored locally in browser using localStorage.
+On page refresh, your notes will still be there!
+
+You can create, edit, and delete your notes.
+
+Your notes are responsive, due to a flexbox layout.
+
+### Storage
 
 The text of each note is stored. On render, they are parsed from storage.
 
-// convert text inside a DIV elemnt into a multi line string
-var lines = document.getElementsByClassName('post-layout--right')[0].textContent
+On component mount AND update
+localStorage.setItem('notes', JSON.stringify(this.state));
 
-var notes = {};
+On component mount: set state using
+const _notes = localStorage.getItem('notes');
 
-notes[title] = lines
 
-localStorage.setItem('notes', JSON.stringify(notes));
-
-# Note retrieval
-
-var multiLineStr = JSON.parse(localStorage.getItem('notes'));
-
-// parse multiple line string into array
-var arr = multiLineStr.match(/[^\r\n]+/g);
+// sample notes
+var notes =  [{
+  id: 1,
+  title: 'All notes',
+  text: 'All notes are stored locally in browser using localStorage.',
+  color: 'red',
+}, {
+  id: 2,
+  title: 'Hey hey',
+  text: 'All notes are stored locally.',
+  color: 'yellow',
+}, {
+  id: 3,
+  title: 'All hey',
+  text: 'Using localStorage.',
+  color: 'green',
+}, {
+  id: 4,
+  title: 'Hey hey',
+  text: 'Hey hey Hey hey Hey hey Hey hey Hey hey Hey hey Hey hey',
+  color: 'blue',
+}];

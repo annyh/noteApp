@@ -10,12 +10,14 @@ const Item = styled.div`
 
   border-top: ${ (p) => p.backgroundColor ? '10px ' + p.backgroundColor + ' solid' : '10px red solid' };
   border-radius: 10px;
+  flex-basis: 25%;
 
-  @media screen and (max-width:1000px) {
+
+  @media screen and (max-width:880px) {
     flex-basis: 50%;
   }
 
-  @media screen and (max-width:560px) {
+  @media screen and (max-width:480px) {
     flex-basis: 100%;
   }
 `;
