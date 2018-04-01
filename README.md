@@ -7,6 +7,14 @@ You can create, edit, and delete your notes.
 
 Your notes are responsive, due to a flexbox layout.
 
+### Setup
+
+npm install
+
+npm start
+
+Add your notes at http://localhost:8080/
+
 ### Storage
 
 The text of each note is stored. On render, they are parsed from storage.
@@ -19,6 +27,7 @@ const _notes = localStorage.getItem('notes');
 
 
 // sample notes
+
 var notes =  [{
   id: 1,
   title: 'All notes',
